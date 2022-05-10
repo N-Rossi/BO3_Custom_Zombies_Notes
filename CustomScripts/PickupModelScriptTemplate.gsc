@@ -34,3 +34,32 @@ function item_pickup() {
 
 - Now make sure the trigger covers up the model and compile.
 */
+
+/* Pickup Place Script */
+function item_pickup_place() {
+	isPickedup = false;
+	item_model = GetEnt("pickup_ball", "targetname");
+	item_pickup_trig = GetEnt("pickup_ball_trig", "targetname");
+	item_place_trig = GetEnt("place_ball_trig", "targetname");
+	item_place_trig Hide();
+	item_place_model = GetEnt("place_ball", "targetname");
+	item_place_model Hide();
+	wait 1;
+
+	item_pickup_trig SetHintString("Press and hold &&1 to pickup ball"); // Set hint string text here
+	item_pickup_trig SetCursorHint("HINT_NOICON");
+
+	item_pickup_trig waittill("trigger", player);
+	item_model delete();
+	item_pickup_trig delete();
+	isPickedup = true;
+	item_place_trig Show();
+	item_place_trig SetHintString("Press and hold &&1 to place ball");
+	IPrintLnBold("Ball Picked Up");
+	wait 1;
+
+	item_place_trig waittill("trigger", player);
+	item_place_model Show();
+	item_place_trig delete();
+	// you can place more scripts if there is more functions you want to happen
+}
